@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏥 醫療資安教室 - 可愛版</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pastel-pink: #FFB6D9;
+            --pastel-blue: #A8D8F0;
+            --pastel-green: #B4E7D6;
+            --pastel-yellow: #FFEAA7;
+            --pastel-purple: #D4C5F9;
+            --pastel-peach: #FDBCB4;
+            --soft-white: #FFFAF7;
+            --soft-gray: #F5F3F0;
+            --dark-text: #4A4A4A;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Arial', sans-serif;
+            line-height: 1.8;
+            color: var(--dark-text);
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-purple) 50%, var(--pastel-pink) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========== 頂部標題區 ========== */
+        header {
+            background: linear-gradient(135deg, rgba(255,182,217,0.9), rgba(212,197,249,0.9));
+            padding: 20px 50px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "✨";
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            font-size: 40px;
+            opacity: 0.5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #FFFFFF;
+            font-size: 2em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(100,100,100,0.2);
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.95);
+            font-size: 0.95em;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* ========== 主內容區域 ========== */
+        .content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            padding: 0 5px;
+        }
+
+        .content-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .content-wrapper::-webkit-scrollbar-thumb {
+            background: var(--pastel-pink);
+            border-radius: 10px;
+        }
+
+        /* ========== 卡片區塊 ========== */
+        .card-section {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 0;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+            position: relative;
+        }
+
+        /* ========== 標題樣式 ========== */
+        h2 {
+            color: var(--dark-text);
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            margin-top: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h3 {
+            color: var(--dark-text);
+            font-size: 1.15em;
+            margin: 15px 0 10px 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ========== 彩色盒子 ========== */
+        .knowledge-box {
+            background: linear-gradient(135deg, var(--pastel-blue), rgba(168,216,240,0.4));
+            border: none;
+            border-left: 3px solid rgba(168,216,240,0.8);
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .knowledge-box::before {
+            content: "💡";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            font-size: 1.1em;
+        }
+
+        .knowledge-box p, .knowledge-box ul {
+            margin-left: 10px;
+        }
+
+        .alert-box {
+            background: linear-gradient(135deg, var(--pastel-yellow), rgba(255,234,167,0.4));
+            border: none;
+            border-left: 3px solid rgba(255,234,167,0.8);
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .alert-box::before {
+            content: "⚠️";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            font-size: 1.1em;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, var(--pastel-peach), rgba(253,188,180,0.4));
+            border: none;
+            border-left: 3px solid rgba(253,188,180,0.8);
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .danger-box::before {
+            content: "🚨";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            font-size: 1.1em;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, var(--pastel-green), rgba(180,231,214,0.4));
+            border: none;
+            border-left: 3px solid rgba(180,231,214,0.8);
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .success-box::before {
+            content: "✅";
+            position: absolute;
+            left: 15px;
+            top: 12px;
+            font-size: 1.1em;
+        }
+
+        /* ========== 定義框 ========== */
+        .definition {
+            background: transparent;
+            border-left: 3px solid var(--pastel-purple);
+            padding: 12px 15px 12px 20px;
+            margin: 15px 0;
+            border-radius: 0;
+            font-style: italic;
+            color: var(--dark-text);
+        }
+
+        /* ========== 步驟組件 ========== */
+        .step {
+            background: transparent;
+            margin: 8px 0;
+            padding: 12px 15px 12px 40px;
+            border-radius: 0;
+            border-left: 4px solid var(--pastel-pink);
+            position: relative;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--pastel-pink);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            font-size: 0.85em;
+            box-shadow: 0 2px 8px rgba(255,182,217,0.3);
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .step-content {
+            color: var(--dark-text);
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .step-content ul {
+            margin-left: 15px;
+            margin-top: 6px;
+        }
+
+        .step-content li {
+            margin: 3px 0;
+        }
+
+        /* ========== Mermaid 圖表 ========== */
+        .mermaid-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(250,245,240,0.8));
+            padding: 15px;
+            border-radius: 12px;
+            margin: 12px 0;
+            border: 2px solid rgba(255,182,217,0.25);
+            overflow-x: auto;
+            display: flex;
+            justify-content: center;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 4px 12px rgba(255,182,217,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .mermaid-container:hover {
+            border-color: rgba(255,182,217,0.4);
+            box-shadow: 0 6px 16px rgba(255,182,217,0.25);
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(250,245,240,0.95));
+        }
+
+        /* Mermaid 動畫和樣式 */
+        .mermaid {
+            animation: slideInFade 0.6s ease-out;
+        }
+
+        @keyframes slideInFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mermaid 節點動畫 */
+        .mermaid rect {
+            animation: nodePulse 0.8s ease-in-out 0.2s forwards !important;
+            opacity: 0;
+            rx: 8 !important;
+            stroke-width: 2 !important;
+            stroke: #FF5FA3 !important;
+            fill: #FFF0F6 !important;
+        }
+
+        @keyframes nodePulse {
+            0% {
+                opacity: 0;
+                filter: drop-shadow(0 0 0 rgba(255, 95, 163, 0));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(255, 95, 163, 0.5));
+            }
+            100% {
+                opacity: 1;
+                filter: drop-shadow(0 0 4px rgba(255, 95, 163, 0.3));
+            }
+        }
+
+        /* Mermaid 線條動畫 - 使用更深的藍色以提高對比度 */
+        .mermaid path {
+            stroke: #4A90E2 !important;
+            stroke-width: 2 !important;
+            stroke-dasharray: 5, 5;
+            animation: flowLine 1s ease-in-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .mermaid path:hover {
+            stroke: #2563EB !important;
+            stroke-width: 3 !important;
+        }
+
+        @keyframes flowLine {
+            0% {
+                stroke-dashoffset: 10;
+                opacity: 0;
+            }
+            100% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+        }
+
+        /* Mermaid 箭頭顏色 */
+        .mermaid marker {
+            fill: #4A90E2 !important;
+        }
+
+        /* Mermaid 文字樣式 */
+        .mermaid text {
+            font-family: 'Noto Sans TC', 'Arial', sans-serif !important;
+            font-size: 0.9em !important;
+            font-weight: 700 !important;
+            fill: #1A1A1A !important;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.5) !important;
+        }
+
+        /* Mermaid 容器懸停效果 */
+        .mermaid-container:hover .mermaid rect {
+            filter: drop-shadow(0 2px 8px rgba(255, 95, 163, 0.5)) !important;
+            stroke: #FF1493 !important;
+        }
+
+        .mermaid-container:hover .mermaid path {
+            stroke: #2563EB !important;
+            stroke-width: 2.5 !important;
+        }
+
+        /* ========== 表格樣式 ========== */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: none;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .comparison-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(200,200,200,0.15);
+            font-size: 0.95em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255,182,217,0.08);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(255,182,217,0.15);
+        }
+
+        /* ========== 列表樣式 ========== */
+        ul, ol {
+            margin-left: 20px;
+            color: var(--dark-text);
+            margin-top: 6px;
+            margin-bottom: 0;
+        }
+
+        li {
+            margin: 4px 0;
+            line-height: 1.5;
+        }
+
+        .prevention-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prevention-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            margin: 8px 0;
+        }
+
+        .prevention-list li:before {
+            content: "🌟";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        /* ========== 徽章 ========== */
+        .learning-objective {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .objective-badge {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
+            color: white;
+            padding: 8px 14px;
+            border-radius: 18px;
+            font-size: 0.85em;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255,182,217,0.2);
+            transition: transform 0.2s;
+        }
+
+        .objective-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(255,182,217,0.3);
+        }
+
+        /* ========== 場景標題 ========== */
+        .scenario-title {
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach));
+            color: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 15px 0 10px 0;
+            font-size: 1.15em;
+            font-weight: 700;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+
+        /* ========== 底部 ========== */
+        footer {
+            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-blue));
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: none;
+            font-weight: 500;
+            border: none;
+            font-size: 0.9em;
+        }
+
+        /* ========== 響應式設計 ========== */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            h3 {
+                font-size: 1.1em;
+            }
+
+            header {
+                padding: 20px 20px;
+            }
+
+            .card-section {
+                padding: 20px 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.15em;
+            }
+
+            h3 {
+                font-size: 1em;
+            }
+
+            header {
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: 15px;
+            }
+
+            header::before {
+                font-size: 30px;
+                top: 8px;
+                right: 15px;
+            }
+
+            .subtitle {
+                font-size: 0.85em;
+            }
+
+            .content-wrapper {
+                padding-right: 5px;
+                padding: 0 2px;
+            }
+
+            .card-section {
+                padding: 15px 10px;
+                margin-bottom: 10px;
+            }
+
+            .knowledge-box,
+            .alert-box,
+            .danger-box,
+            .success-box {
+                padding: 12px 15px;
+                margin: 10px 0;
+                border-left-width: 3px;
+            }
+
+            .knowledge-box::before,
+            .alert-box::before,
+            .danger-box::before,
+            .success-box::before {
+                left: 12px;
+                top: 10px;
+                font-size: 1em;
+            }
+
+            .knowledge-box p, 
+            .knowledge-box ul,
+            .alert-box ul,
+            .danger-box ul,
+            .success-box ul {
+                margin-left: 5px;
+                font-size: 0.9em;
+            }
+
+            ul, ol {
+                margin-left: 15px;
+                font-size: 0.9em;
+            }
+
+            li {
+                margin: 3px 0;
+                line-height: 1.4;
+            }
+
+            .step {
+                padding: 10px 12px 10px 35px;
+                border-left-width: 3px;
+                margin: 6px 0;
+            }
+
+            .step-number {
+                width: 26px;
+                height: 26px;
+                font-size: 0.75em;
+                left: -13px;
+            }
+
+            .step-title {
+                font-size: 0.95em;
+                margin-bottom: 4px;
+            }
+
+            .step-content {
+                font-size: 0.85em;
+                line-height: 1.4;
+            }
+
+            .step-content ul {
+                margin-left: 12px;
+                margin-top: 4px;
+            }
+
+            .step-content li {
+                margin: 2px 0;
+            }
+
+            .definition {
+                padding: 12px 12px;
+                margin: 12px 0;
+                border-left-width: 3px;
+                font-size: 0.9em;
+            }
+
+            .scenario-title {
+                padding: 10px 12px;
+                margin: 12px 0 8px 0;
+                font-size: 1em;
+                gap: 8px;
+            }
+
+            .mermaid-container {
+                padding: 10px 5px;
+                margin: 10px 0;
+                overflow-x: auto;
+            }
+
+            .mermaid {
+                font-size: 0.8em !important;
+            }
+
+            .comparison-table {
+                margin: 10px 0;
+                font-size: 0.85em;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 8px;
+                font-size: 0.8em;
+            }
+
+            .learning-objective {
+                gap: 6px;
+                margin: 10px 0;
+            }
+
+            .objective-badge {
+                padding: 6px 10px;
+                font-size: 0.8em;
+                border-radius: 16px;
+            }
+
+            .prevention-list li {
+                padding: 8px 0;
+                padding-left: 26px;
+                margin: 6px 0;
+                font-size: 0.9em;
+            }
+
+            .prevention-list li:before {
+                font-size: 1em;
+            }
+
+            footer {
+                padding: 10px;
+                margin-top: 10px;
+                font-size: 0.85em;
+                border-radius: 8px;
+            }
+
+            /* 表格在手機上橫向滾動 */
+            .comparison-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .comparison-table tbody {
+                display: block;
+            }
+
+            /* 方便手機點擊的元素大小 */
+            a, button, input, select {
+                min-height: 44px;
+            }
+
+            /* 調整網格布局 */
+            [style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+                letter-spacing: 0.5px;
+            }
+
+            h2 {
+                font-size: 1.05em;
+                margin-bottom: 10px;
+                margin-top: 6px;
+            }
+
+            h3 {
+                font-size: 0.95em;
+                margin: 12px 0 8px 0;
+            }
+
+            header {
+                padding: 12px;
+                margin-bottom: 8px;
+                border-radius: 12px;
+            }
+
+            header::before {
+                font-size: 25px;
+                right: 10px;
+                top: 6px;
+            }
+
+            .subtitle {
+                font-size: 0.8em;
+                margin-top: 4px;
+            }
+
+            .content-wrapper {
+                padding: 0;
+            }
+
+            .card-section {
+                padding: 12px 8px;
+                margin-bottom: 8px;
+            }
+
+            .knowledge-box,
+            .alert-box,
+            .danger-box,
+            .success-box {
+                padding: 10px 12px;
+                margin: 8px 0;
+                border-left-width: 3px;
+                border-radius: 8px;
+            }
+
+            .knowledge-box::before,
+            .alert-box::before,
+            .danger-box::before,
+            .success-box::before {
+                left: 10px;
+                top: 8px;
+                font-size: 0.9em;
+            }
+
+            .knowledge-box p, 
+            .knowledge-box ul,
+            .alert-box ul,
+            .danger-box ul,
+            .success-box ul {
+                margin-left: 2px;
+                font-size: 0.85em;
+                line-height: 1.3;
+            }
+
+            ul, ol {
+                margin-left: 12px;
+                font-size: 0.85em;
+            }
+
+            li {
+                margin: 2px 0;
+                line-height: 1.3;
+            }
+
+            .step {
+                padding: 8px 10px 8px 32px;
+                border-left-width: 3px;
+                margin: 5px 0;
+            }
+
+            .step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7em;
+                left: -12px;
+            }
+
+            .step-title {
+                font-size: 0.9em;
+                margin-bottom: 3px;
+                font-weight: 600;
+            }
+
+            .step-content {
+                font-size: 0.82em;
+                line-height: 1.3;
+            }
+
+            .step-content ul {
+                margin-left: 10px;
+                margin-top: 3px;
+            }
+
+            .step-content li {
+                margin: 2px 0;
+                line-height: 1.3;
+            }
+
+            .definition {
+                padding: 10px;
+                margin: 10px 0;
+                border-left-width: 3px;
+                font-size: 0.85em;
+                border-radius: 8px;
+            }
+
+            .scenario-title {
+                padding: 9px 10px;
+                margin: 10px 0 7px 0;
+                font-size: 0.95em;
+                gap: 6px;
+                border-radius: 6px;
+            }
+
+            .mermaid-container {
+                padding: 8px 0;
+                margin: 8px 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 8px;
+            }
+
+            .mermaid {
+                font-size: 0.65em !important;
+                min-width: 100%;
+            }
+
+            .comparison-table {
+                margin: 8px 0;
+                font-size: 0.8em;
+                border-radius: 8px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 6px;
+                font-size: 0.75em;
+            }
+
+            .comparison-table th {
+                font-size: 0.8em;
+            }
+
+            .learning-objective {
+                gap: 5px;
+                margin: 8px 0;
+                flex-wrap: wrap;
+            }
+
+            .objective-badge {
+                padding: 5px 8px;
+                font-size: 0.75em;
+                border-radius: 14px;
+                white-space: nowrap;
+            }
+
+            .prevention-list {
+                padding: 0;
+                margin: 0;
+            }
+
+            .prevention-list li {
+                padding: 7px 0;
+                padding-left: 23px;
+                margin: 5px 0;
+                font-size: 0.85em;
+                line-height: 1.3;
+            }
+
+            .prevention-list li:before {
+                font-size: 0.95em;
+            }
+
+            footer {
+                padding: 8px;
+                margin-top: 8px;
+                font-size: 0.8em;
+                border-radius: 8px;
+            }
+
+            /* 防止水平溢出 */
+            body, html {
+                overflow-x: hidden;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            /* 改進觸控友善性 */
+            button, a {
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            /* 禁用雙擊縮放 */
+            body {
+                touch-action: manipulation;
+            }
+        }
+
+        /* ========== 定義框 ========== */
+        .definition {
+            background: var(--soft-gray);
+            border-left: 4px solid var(--pastel-purple);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            font-style: italic;
+            color: var(--dark-text);
+        }
+
+        /* ========== 關鍵詞 ========== */
+        .key-term {
+            font-weight: 700;
+            color: #D946A6;
+            background: rgba(217,70,166,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* ========== 自訂滾動條 ========== */
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--pastel-pink);
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: var(--pastel-purple);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 醫療資安教室 💉</h1>
+            <p class="subtitle">一起學習保護患者資料和醫療設備的方法吧！ 💕</p>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- 課程簡介 -->
+            <section class="card-section">
+                <h2>📚 我們今天要學什麼？</h2>
+                <p>讓我們用可愛的方式來認識醫療機構面臨的網路安全威脅和防禦方法吧！ 🎀</p>
+                
+                <div class="learning-objective">
+                    <div class="objective-badge">🎯 認識網路攻擊</div>
+                    <div class="objective-badge">🔐 學習防禦技巧</div>
+                    <div class="objective-badge">⚠️ 識別危險信號</div>
+                    <div class="objective-badge">💪 建立安全習慣</div>
+                </div>
+
+                <div class="knowledge-box" style="margin-top: 20px;">
+                    <h3>為什麼醫療機構這麼容易被攻擊呢？</h3>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li><strong>珍貴的患者資訊：</strong>每份患者記錄在暗網上可以賣 $200～$1,000 呢！ 💰</li>
+                        <li><strong>必須快速應急：</strong>醫院為了拯救患者生命，會快速支付贖金 💔</li>
+                        <li><strong>舊系統很多：</strong>醫院裡有許多老舊的電腦和醫療設備很難更新 🖥️</li>
+                        <li><strong>聯網醫療設備：</strong>輸液泵、心臟監護儀等設備通常安全防護不足 🏥</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 場景 1 -->
+            <section class="card-section">
+                <div class="scenario-title">📧 場景 1：危險的電子郵件和資料竊取</div>
+                
+                <h2>攻擊是怎樣一步步進行的？</h2>
+                
+                <div class="knowledge-box">
+                    <h3>什麼是「橫向移動」？</h3>
+                    <p class="definition">
+                        🚀 壞人破門而入後，他們會偽裝成合法使用者，悄悄地在醫院的電腦網路裡四處移動，就像忍者一樣！最後盜取患者資料或鎖定檔案以索取贖金。
+                    </p>
+                </div>
+
+                <h3>🔍 完整的攻擊流程：</h3>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                            A["<b>第1步：釣魚郵件</b><br/>看起來像醫院的郵件 📧"] --> B["<b>第2步：點進陷阱</b><br/>醫生被騙點了連結 😱"]
+                            B --> C["<b>第3步：竊取密碼</b><br/>壞人拿到醫生的帳號密碼 🔑"]
+                            C --> D["<b>第4步：移動範圍</b><br/>在網路裡四處亂走 👻"]
+                            D --> E["<b>第5步：找目標</b><br/>尋找重要的患者資料 🎯"]
+                            E --> F["<b>第6-7步：大麻煩</b><br/>加密檔案要錢或竊取資料 💸"]
+                            
+                            style A fill:#FFB6D9
+                            style B fill:#FDBCB4
+                            style C fill:#FFEAA7
+                            style D fill:#D4C5F9
+                            style E fill:#A8D8F0
+                            style F fill:#B4E7D6
+                    </div>
+                </div>
+
+                <h3>🎯 攻擊的各個階段</h3>
+
+                <div class="step">
+                    <div class="step-number">1-4</div>
+                    <div class="step-title">📧 從收集資訊到竊取密碼</div>
+                    <div class="step-content">
+                        <p><strong>壞人怎樣做的：</strong></p>
+                        <ul>
+                            <li>在醫院網站尋找醫生名單 🔍</li>
+                            <li>學習醫院的電子郵件格式 📝</li>
+                            <li>製作超逼真的假郵件 🎭</li>
+                            <li>誘騙醫生點擊危險連結或開啟有病毒的檔案 😈</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>他們用的工具：</strong>密鑰記錄器（監看打字）、密碼盜取程式</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">💣 魚叉式網路釣魚</div>
+                    <div class="step-content">
+                        <p><strong>「魚叉式網路釣魚」是什麼？</strong> 🎣</p>
+                        <ul>
+                            <li><strong>超級定製：</strong>壞人會研究目標人物，說出只有熟人才知道的事 🎯</li>
+                            <li><strong>假扮你信任的人：</strong>冒充同事、主管或 IT 部門 🎭</li>
+                            <li><strong>利用心理技巧：</strong>製造緊急感（「系統故障了！」）讓你快速行動 ⏰</li>
+                            <li><strong>多種傳播方式：</strong>郵件、Slack、Teams、簡訊 📱</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6-7</div>
+                    <div class="step-title">💰 竊取資料和隱藏蹤跡</div>
+                    <div class="step-content">
+                        <p><strong>壞人的最終目標：</strong></p>
+                        <ul>
+                            <li>偷走患者記錄 📋</li>
+                            <li>加密醫院的所有檔案，要求付贖金 🔐</li>
+                            <li>創建後門以便再次進入 🚪</li>
+                            <li>清除日誌隱藏蹤跡 🧹</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert-box" style="margin-top: 20px;">
+                    <h3>🛡️ 我們怎樣防禦？</h3>
+                    <ul class="prevention-list">
+                        <li><strong>多重認證：</strong>除了密碼，還要輸入簡訊驗證碼或指紋 🔐</li>
+                        <li><strong>分隔網路：</strong>把醫療系統和辦公系統分開 🔗</li>
+                        <li><strong>最小權限：</strong>員工只能用必要的權限 👤</li>
+                        <li><strong>監控異常：</strong>偵測奇怪的登入或檔案轉移 👀</li>
+                        <li><strong>員工教育：</strong>教大家識別釣魚郵件 🎓</li>
+                        <li><strong>定期檢查：</strong>進行安全演習和滲透測試 🧪</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 場景 4 -->
+            <section class="card-section">
+                <div class="scenario-title">🏥 場景 4：患者監護儀的危機</div>
+                
+                <h2>連接網路的醫療設備有多危險？</h2>
+
+                <div class="knowledge-box">
+                    <h3>什麼是「醫療物聯網」（IoMT）？</h3>
+                    <p class="definition">
+                        🖥️ 這是指所有連接到醫院網路的醫療設備，像是患者監護儀、輸液泵、呼吸機、MRI 掃描儀...這些設備監測患者狀況並整合到電子健康記錄系統。
+                    </p>
+                </div>
+
+                <div class="danger-box" style="margin-top: 20px;">
+                    <h3>🚨 這些攻擊直接威脅患者生命！</h3>
+                    <p style="margin-top: 12px;"><strong>不同於盜取資料的攻擊，IoMT 攻擊可能讓患者喪命：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 12px;">
+                        <li>修改患者的心跳數值，醫生看不到真實狀況 💔</li>
+                        <li>關閉警報系統，當患者出危險時沒人知道 🔔</li>
+                        <li>改變輸液泵的藥物劑量，造成過度或不足用藥 💉</li>
+                        <li>切斷患者的治療設備 ⚡</li>
+                        <li>透過手術室攝像頭看到患者隱私部位 📹</li>
+                    </ul>
+                </div>
+
+                <h3>📊 患者監護儀攻擊流程</h3>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                            A["患者監護儀<br/>🖥️"] --> B["無線除錯<br/>尋找漏洞 🔍"]
+                            B --> C["破解進去<br/>無需密碼 🔓"]
+                            C --> D["讀取配置<br/>找到密碼 🔑"]
+                            D --> E["接管設備<br/>改數值 ⚙️"]
+                            E --> F["監視或傷害<br/>患者 😰"]
+                            
+                            style A fill:#FFB6D9
+                            style B fill:#FDBCB4
+                            style C fill:#FFEAA7
+                            style D fill:#D4C5F9
+                            style E fill:#A8D8F0
+                            style F fill:#B4E7D6
+                    </div>
+                </div>
+
+                <h3>🔓 怎樣入侵患者監護儀？</h3>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">📱 透過 Android 除錯橋樑進入</div>
+                    <div class="step-content">
+                        <p><strong>技術原理：</strong>許多患者監護儀執行 Android 系統。如果啟用了開發者模式 (ADB)，壞人可以不用密碼直接遠端控制！</p>
+                        <ul>
+                            <li>掃描醫院網路找開放的埠 🔍</li>
+                            <li>連接到患者監護儀 🔗</li>
+                            <li>不用密碼就得到管理員權限 😱</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">📂 存取應用程式儲存</div>
+                    <div class="step-content">
+                        <p><strong>壞人能做什麼：</strong></p>
+                        <ul>
+                            <li>找到密碼和 API 金鑰（純文字存放 😱）</li>
+                            <li>提取患者資訊 👤</li>
+                            <li>修改設備的設定改變它的行為 ⚙️</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">📹 監視手術室</div>
+                    <div class="step-content">
+                        <p><strong>醫院的網路攝像頭也有風險：</strong></p>
+                        <ul>
+                            <li>即時監看手術過程 📹</li>
+                            <li>錄製患者身體 🎥</li>
+                            <li>勒索醫院或售賣影片 💰</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>📋 常見的醫療設備漏洞</h3>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>漏洞類型</th>
+                            <th>為什麼會這樣</th>
+                            <th>會發生什麼</th>
+                            <th>哪些設備受影響</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>韌體太舊 🕰️</strong></td>
+                            <td>設備設計用 10-20 年，很少更新</td>
+                            <td>舊漏洞沒被修，可被遠端利用</td>
+                            <td>輸液泵、心臟監護儀</td>
+                        </tr>
+                        <tr>
+                            <td><strong>密碼太弱 🔑</strong></td>
+                            <td>廠商用預設密碼或共享密碼</td>
+                            <td>壞人輕易入侵，盜取患者資料</td>
+                            <td>網路攝像頭、IP 電話</td>
+                        </tr>
+                        <tr>
+                            <td><strong>沒有加密 📡</strong></td>
+                            <td>設計時沒想到網路安全</td>
+                            <td>患者資訊在傳輸中被竊聽</td>
+                            <td>患者監護儀、穿戴設備</td>
+                        </tr>
+                        <tr>
+                            <td><strong>除錯模式 🔧</strong></td>
+                            <td>廠商留的技術支援後門</td>
+                            <td>壞人繞過所有密碼保護</td>
+                            <td>Android 患者監護儀</td>
+                        </tr>
+                        <tr>
+                            <td><strong>網路混亂 🌐</strong></td>
+                            <td>醫療設備連在主網路</td>
+                            <td>一個破口導致整個系統崩潰</td>
+                            <td>所有連接設備</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box" style="margin-top: 20px;">
+                    <h3>🛡️ 醫療設備怎樣保護自己？</h3>
+                    <ul class="prevention-list">
+                        <li><strong>零信任模式：</strong>每台設備都要驗證身份，即使在內部 🔐</li>
+                        <li><strong>網路分隔：</strong>把醫療設備隔離在專用網路區 🔗</li>
+                        <li><strong>訪問控制：</strong>只讓授權安全的設備連接 ✅</li>
+                        <li><strong>設備清單：</strong>追蹤所有設備和軟體版本 📝</li>
+                        <li><strong>流量監控：</strong>偵測異常的資料傳輸 👀</li>
+                        <li><strong>安全測試：</strong>定期進行滲透測試 🧪</li>
+                        <li><strong>廠商合作：</strong>向製造商申請安全補丁 🤝</li>
+                        <li><strong>物理安全：</strong>限制接近設備 🚪</li>
+                    </ul>
+                </div>
+
+                <div class="knowledge-box" style="margin-top: 20px;">
+                    <h3>📊 嚇人的真實數據</h3>
+                    <ul style="margin-left: 20px;">
+                        <li>73% 的輸液泵有可被利用的漏洞 😱</li>
+                        <li>56% 的醫院在過去兩年遭遇 IoT 設備相關攻擊 🚨</li>
+                        <li>88% 的資料外洩涉及 IoT 設備 💔</li>
+                        <li>平均需要 327 天才能發現 IoMT 攻擊 ⏰</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 網路攝像頭 -->
+            <section class="card-section">
+                <h2>📹 手術室監視攝像頭的危機</h2>
+
+                <div class="knowledge-box">
+                    <h3>什麼是 RTSP？</h3>
+                    <p class="definition">
+                        🎬 RTSP（即時串流傳輸協議）是一種網路協議，讓攝像頭、麥克風等設備直播影像。醫院用它進行即時監視和遠端監護。
+                    </p>
+                </div>
+
+                <h3>📊 網路攝像頭被駭的流程</h3>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                            A["掃描網路<br/>找開放埠 🔍"] --> B["發現攝像頭<br/>在手術室 📹"]
+                            B --> C["連接到直播 🔗"]
+                            C --> D["即時監看<br/>手術過程 👀"]
+                            D --> E["錄製視訊 🎥"]
+                            E --> F["勒索或販售 💰"]
+                            
+                            style A fill:#FFB6D9
+                            style B fill:#FDBCB4
+                            style C fill:#FFEAA7
+                            style D fill:#D4C5F9
+                            style E fill:#A8D8F0
+                            style F fill:#B4E7D6
+                    </div>
+                </div>
+
+                <div class="danger-box">
+                    <h3>🔴 手術室監視有多可怕？</h3>
+                    <ul style="margin-left: 20px; margin-top: 12px;">
+                        <li><strong>患者身份洩露：</strong>能看到患者臉部和身體 👤</li>
+                        <li><strong>醫療隱私洩露：</strong>知道患者在做什麼手術（洩露疾病資訊）🏥</li>
+                        <li><strong>醫術洩露：</strong>醫院獨特的手術技巧被複製 🔬</li>
+                        <li><strong>勒索工具：</strong>敏感影片用來勒索醫院或患者 💸</li>
+                        <li><strong>黑市販售：</strong>暗網上有人買這類視訊 🖥️</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box" style="margin-top: 20px;">
+                    <h3>🛡️ 攝像頭安全防禦</h3>
+                    <ul class="prevention-list">
+                        <li><strong>關閉不必要的埠：</strong>不需要遠端存取就封鎖 RTSP 埠 🔌</li>
+                        <li><strong>設強密碼：</strong>所有攝像頭需要複雜密碼 🔑</li>
+                        <li><strong>只用 VPN：</strong>遠端存取一定要透過 VPN 🔐</li>
+                        <li><strong>IP 白名單：</strong>只允許特定 IP 連接 ✅</li>
+                        <li><strong>加密傳輸：</strong>使用 RTPS（加密版本）不用純文字 🔒</li>
+                        <li><strong>監控日誌：</strong>記錄所有存取嘗試 📝</li>
+                        <li><strong>物理安全：</strong>限制攝像頭接近 🚪</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 綜合防禦 -->
+            <section class="card-section">
+                <h2>🛡️ 醫院的整體防禦計畫</h2>
+
+                <h3>🏗️ 分層防禦（像餅乾一樣層層保護！）</h3>
+
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                            A["🌐 第1層：外圍防禦<br/>防火牆 IPS"] --> B["🔐 第2層：訪問控制<br/>多重認證"]
+                            B --> C["🔗 第3層：網路分段<br/>設備隔離"]
+                            C --> D["🖥️ 第4層：端點安全<br/>EDR 防毒"]
+                            D --> E["👀 第5層：監控偵測<br/>SIEM 告警"]
+                            E --> F["🚨 第6層：應急響應<br/>備份恢復"]
+                            
+                            style A fill:#FFB6D9
+                            style B fill:#FDBCB4
+                            style C fill:#FFEAA7
+                            style D fill:#D4C5F9
+                            style E fill:#A8D8F0
+                            style F fill:#B4E7D6
+                    </div>
+                </div>
+
+                <h3>1️⃣ 第1層：外圍防禦</h3>
+                <div class="knowledge-box">
+                    <ul style="margin-left: 20px;">
+                        <li><strong>下一代防火牆：</strong>聰明的守門員，看應用程式內容不只看埠號 🚨</li>
+                        <li><strong>入侵防禦系統：</strong>找出已知和未知的攻擊 🔍</li>
+                        <li><strong>郵件安全：</strong>掃描釣魚郵件和惡意軟體 📧</li>
+                    </ul>
+                </div>
+
+                <h3>2️⃣ 第2層：訪問控制</h3>
+                <div class="knowledge-box">
+                    <ul style="margin-left: 20px;">
+                        <li><strong>多重認證（MFA）：</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>密碼 🔑</li>
+                                <li>簡訊驗證碼 📱</li>
+                                <li>指紋或臉部識別 👆👤</li>
+                            </ul>
+                        </li>
+                        <li><strong>零信任：</strong>永遠不信任，永遠驗證 🔐</li>
+                    </ul>
+                </div>
+
+                <h3>3️⃣ 第3層：網路分段</h3>
+                <div class="knowledge-box">
+                    <p style="margin-bottom: 15px;">分隔網路的好處：</p>
+                    <ul style="margin-left: 20px;">
+                        <li>限制壞人亂走 🚷</li>
+                        <li>容易發現異常 👀</li>
+                        <li>快速隔離受感染設備 ⚠️</li>
+                        <li>符合法規 ✅</li>
+                    </ul>
+                </div>
+
+                <h3>4️⃣ 第4層：端點安全</h3>
+                <div class="knowledge-box">
+                    <ul style="margin-left: 20px;">
+                        <li><strong>端點偵測反應（EDR）：</strong>監看每台電腦的異常行為 👀</li>
+                        <li><strong>補丁管理：</strong>定期安裝更新修復漏洞 🔧</li>
+                        <li><strong>應用白名單：</strong>只允許安全程式執行 ✅</li>
+                        <li><strong>磁碟加密：</strong>設備被盜也讀不到資料 🔒</li>
+                    </ul>
+                </div>
+
+                <h3>5️⃣ 第5層：監控偵測</h3>
+                <div class="knowledge-box">
+                    <ul style="margin-left: 20px;">
+                        <li><strong>SIEM 系統：</strong>從所有地方收集日誌找異常 📊</li>
+                        <li><strong>威脅獵捕：</strong>安全團隊主動搜尋攻擊 🔍</li>
+                        <li><strong>行為分析：</strong>找出不尋常的使用者行為 📈</li>
+                    </ul>
+                </div>
+
+                <h3>6️⃣ 第6層：應急響應</h3>
+                <div class="knowledge-box">
+                    <ul style="margin-left: 20px;">
+                        <li><strong>應急計畫：</strong>攻擊時的處理步驟 📋</li>
+                        <li><strong>3-2-1 備份規則：</strong>
+                            <ul style="margin-left: 20px; margin-top: 8px;">
+                                <li>3 份備份副本 💾</li>
+                                <li>2 種不同媒體（磁碟、雲端）💿</li>
+                                <li>1 份異地儲存（不同地點）🌍</li>
+                            </ul>
+                        </li>
+                        <li><strong>定期演習：</strong>測試備份和恢復程序 🧪</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 實踐建議 -->
+            <section class="card-section">
+                <h2>💡 我們可以做什麼？</h2>
+
+                <h3>🏥 醫院安全部門</h3>
+                <div class="knowledge-box">
+                    <ol style="margin-left: 20px;">
+                        <li><strong>列出所有設備：</strong>清楚知道有什麼連接到網路 📝</li>
+                        <li><strong>找出弱點：</strong>進行安全測試 🔍</li>
+                        <li><strong>優先修復：</strong>先修最危險的 ⚡</li>
+                        <li><strong>分層防禦：</strong>不要只靠一道牆 🏗️</li>
+                        <li><strong>教育員工：</strong>每年至少一次培訓 🎓</li>
+                        <li><strong>定期演習：</strong>練習如何應對攻擊 🧪</li>
+                        <li><strong>廠商合作：</strong>要求安全補丁 🤝</li>
+                    </ol>
+                </div>
+
+                <h3>👨‍⚕️ 醫護人員</h3>
+                <div class="success-box">
+                    <ul class="prevention-list">
+                        <li><strong>看清釣魚郵件：</strong>找拼寫錯誤、奇怪要求 🎣</li>
+                        <li><strong>不亂點連結：</strong>有疑問就打電話確認 ☎️</li>
+                        <li><strong>強密碼：</strong>至少 12 個字元混合大小寫數字符號 🔑</li>
+                        <li><strong>啟用多重認證：</strong>增加保護層 🛡️</li>
+                        <li><strong>回報異常：</strong>看到奇怪事情立即通知 IT 🚨</li>
+                        <li><strong>鎖電腦：</strong>離開時記得按 Win+L 🔐</li>
+                        <li><strong>不分享密碼：</strong>即使是同事也不行 🚫</li>
+                    </ul>
+                </div>
+
+                <h3>👔 醫院管理者</h3>
+                <div class="knowledge-box">
+                    <ul style="margin-left: 20px;">
+                        <li><strong>投資資安：</strong>預防攻擊比恢復便宜得多 💰</li>
+                        <li><strong>制定政策：</strong>清楚的安全規則 📜</li>
+                        <li><strong>支持培訓：</strong>員工資安教育很重要 🎓</li>
+                        <li><strong>定期檢查：</strong>每季度評估安全狀況 📊</li>
+                        <li><strong>買保險：</strong>網路安全保險會幫助 🏦</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 總結 -->
+            <section class="card-section">
+                <h2>📌 重點整理</h2>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                    <div class="alert-box">
+                        <h3>📧 場景 1：郵件攻擊</h3>
+                        <p>從釣魚郵件開始，一步步盜取資料。防禦重點：教育 + 多重認證 + 監控 🎯</p>
+                    </div>
+
+                    <div class="danger-box">
+                        <h3>🏥 場景 4：設備攻擊</h3>
+                        <p>直接威脅患者生命！防禦重點：隔離網路 + 強密碼 + 監視 ⚠️</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-box" style="margin-top: 20px;">
+                    <h3>記住這三件事！ 🌟</h3>
+                    <ol style="margin-left: 20px; margin-top: 15px;">
+                        <li><strong>患者安全最重要：</strong>網路安全不是 IT 的事，是患者生命的事 💕</li>
+                        <li><strong>防禦是持續的：</strong>威脅不停，我們的防禦也不能停 ⏰</li>
+                        <li><strong>人是關鍵：</strong>員工的安全習慣是最強也是最弱的防線 👥</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            ✨ 一起守護患者的健康和隱私吧！ 💉 希望大家都能成為資安小衛士！ 🦸‍♀️🦸‍♂️
+        </footer>
+    </div>
+
+    <script>
+        // 自訂 Mermaid 主題配置
+        const mermaidConfig = {
+            startOnLoad: true,
+            theme: 'base',
+            securityLevel: 'loose',
+            logLevel: 'fatal',
+            themeVariables: {
+                primaryColor: '#FFF0F6',
+                primaryTextColor: '#1A1A1A',
+                primaryBorderColor: '#FF5FA3',
+                primaryBorder: '#FF5FA3',
+                lineColor: '#4A90E2',
+                secondBkgColor: '#FFF5E1',
+                secondTextColor: '#1A1A1A',
+                tertiaryColor: '#FFE8CC',
+                tertiaryTextColor: '#1A1A1A',
+                tertiaryBorder: '#4A90E2',
+                edgeLabelBackground: {
+                    fill: '#FFFAF7',
+                    stroke: '#4A90E2',
+                    'stroke-width': '1.5px'
+                },
+                fontFamily: "'Noto Sans TC', 'Arial', sans-serif",
+                fontSize: '16px',
+                fontFace: "'Noto Sans TC', 'Arial', sans-serif",
+                borderRadius: '8px',
+                stroke: '#4A90E2',
+                'stroke-width': '2px'
+            }
+        };
+        
+        mermaid.initialize(mermaidConfig);
+        mermaid.contentLoaded();
+
+        // 為圖表添加互動效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const mermaidDivs = document.querySelectorAll('.mermaid');
+            mermaidDivs.forEach((div, index) => {
+                // 添加延遲動畫
+                div.style.animationDelay = (index * 0.1) + 's';
+                
+                // 為節點添加懸停效果和背景樣式
+                const rects = div.querySelectorAll('rect');
+                rects.forEach(rect => {
+                    rect.style.cursor = 'pointer';
+                    rect.style.transition = 'all 0.3s ease';
+                    // 設置背景色為淡粉紅
+                    if (!rect.getAttribute('fill') || rect.getAttribute('fill') === 'transparent') {
+                        rect.style.fill = '#FFF0F6';
+                    }
+                    rect.addEventListener('mouseenter', function() {
+                        this.style.filter = 'drop-shadow(0 4px 12px rgba(255, 95, 163, 0.7))';
+                        this.style.transform = 'scale(1.05)';
+                        this.style.fill = '#FFE0ED';
+                    });
+                    rect.addEventListener('mouseleave', function() {
+                        this.style.filter = 'drop-shadow(0 2px 8px rgba(255, 95, 163, 0.3))';
+                        this.style.transform = 'scale(1)';
+                        this.style.fill = '#FFF0F6';
+                    });
+                });
+
+                // 改進文字顏色
+                const texts = div.querySelectorAll('text');
+                texts.forEach(text => {
+                    text.style.fill = '#1A1A1A';
+                    text.style.fontWeight = '700';
+                    text.style.fontFamily = "'Noto Sans TC', 'Arial', sans-serif";
+                });
+
+                // 改進邊緣標籤背景
+                const labels = div.querySelectorAll('[class*="label"]');
+                labels.forEach(label => {
+                    const labelText = label.querySelector('text');
+                    if (labelText) {
+                        labelText.style.fill = '#1A1A1A';
+                        labelText.style.fontWeight = '700';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
